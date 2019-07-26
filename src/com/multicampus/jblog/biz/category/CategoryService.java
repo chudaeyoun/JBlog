@@ -12,4 +12,6 @@ public interface CategoryService {
 
 	public Object getCategory(CategoryVO vo);
 
+	public void updateCategory(CategoryVO vo);
+
 }

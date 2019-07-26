@@ -56,8 +56,16 @@ public class CategoryController {
 	}
 	
 	@RequestMapping("/deleteCategory.do")
-	public String deleteCategory(CategoryVO vo) {
+	public String deleteCategory(CategoryVO vo, HttpSession session) {
 		categoryService.deleteCategory(vo);
+		session.removeAttribute("categoryFlag");
+		return "getCategoryList.do";
+	}
+	
+	@RequestMapping("/updateCategory.do")
+	public String updateCategory(CategoryVO vo, HttpSession session) {
+		categoryService.updateCategory(vo);
+		session.removeAttribute("categoryFlag");
 		return "getCategoryList.do";
 	}
 

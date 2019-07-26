@@ -29,6 +29,10 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.getCategory(vo);
 	}
 
+	public void updateCategory(CategoryVO vo) {
+		categoryDAO.updateCategory(vo);
+	}
+
 }
 
 

@@ -19,6 +19,7 @@ public class CategoryDAO {
 
 	// SQL 명령어들
 	private String CATEGORY_ADD = "insert into category(blog_id, category_id, category_name, display_type, description, cnt_display_post, created_date, modified_date) values(?,(select nvl(max(category_id), 0) + 1 from category),?,?,?,?,sysdate,sysdate)";
+	private String CATEGORY_UPDATE = "update category set category_name=?, display_type=?, description=?, cnt_display_post=? where category_id=?";
 	private String CATEGORY_LIST = "select * from category where blog_id=? order by category_name desc";
 	private String CATEGORY_GET = "select * from category where category_id=?";
 	private String CATEGORY_DELETE = "delete category where category_id=?";
@@ -104,6 +105,23 @@ public class CategoryDAO {
 			JDBCUtil.close(rs, stmt, conn);			
 		}
 		return category;
+	}
+
+	public void updateCategory(CategoryVO vo) {
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(CATEGORY_UPDATE);
+			stmt.setString(1, vo.getCategoryName());
+			stmt.setString(2, vo.getDisplayType());
+			stmt.setString(3, vo.getDescription());
+			stmt.setInt(4, vo.getCntDisplayPost());
+			stmt.setString(5, vo.getCategoryId());
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(stmt, conn);
+		}
 	}
 
 }
