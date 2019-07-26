@@ -37,10 +37,33 @@ public class CategoryController {
 		model.addAttribute("categoryList", categoryList);
 		return "blogadmin_category.jsp";
 	}
-
+	
+	@RequestMapping("/getCategory.do")
+	public String getCategory(CategoryVO vo, HttpSession session, Model model){
+		// 세션으로부터 userId 정보 추출하여 blog_id에 저장한다.
+		vo.setBlogId((String)session.getAttribute("userId"));
+		
+		// 카테고리 목록을 조회하여 model 객체에 저장한다.
+		ArrayList<CategoryVO> categoryList = categoryService.getCategoryList(vo);
+		model.addAttribute("categoryList", categoryList);
+		
+		// 사용자가 선택한 특정 카테고리도 조회하여 model에 저장한다.
+		model.addAttribute("category", categoryService.getCategory(vo));
+		
+		// 등록이 아닌 상세 화면이 보이도록 categoryFlag 값을 update로 변경한다.
+		session.setAttribute("categoryFlag", "update");
+		return "blogadmin_category.jsp";
+	}
+	
 	@RequestMapping("/deleteCategory.do")
-	public String deleteCategory(CategoryVO vo){
+	public String deleteCategory(CategoryVO vo) {
 		categoryService.deleteCategory(vo);
 		return "getCategoryList.do";
 	}
+
 }
+
+
+
+
+

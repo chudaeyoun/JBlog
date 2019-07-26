@@ -10,4 +10,6 @@ public interface CategoryService {
 
 	public void deleteCategory(CategoryVO vo);
 
+	public Object getCategory(CategoryVO vo);
+
 }

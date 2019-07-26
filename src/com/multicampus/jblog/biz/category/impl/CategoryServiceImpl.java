@@ -21,9 +21,12 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.getCategoryList(vo);
 	}
 
-	@Override
 	public void deleteCategory(CategoryVO vo) {
 		categoryDAO.deleteCategory(vo);
+	}
+
+	public Object getCategory(CategoryVO vo) {
+		return categoryDAO.getCategory(vo);
 	}
 
 }
